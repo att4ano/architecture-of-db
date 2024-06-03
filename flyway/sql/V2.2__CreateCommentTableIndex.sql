@@ -1,0 +1,1 @@
+CREATE INDEX idx_comment_id ON comment (id);

@@ -1,0 +1,1 @@
+CREATE INDEX idx_board_id ON board (id)

@@ -1,0 +1,67 @@
+version: '3.9'
+
+volumes:
+  db5:
+
+services:
+  flyway:
+    image: flyway/flyway:latest
+    volumes:
+      - ./flyway/conf:/flyway/conf
+      - ./flyway/sql:/flyway/sql
+    command: ["migrate", "-target=${FLYWAY_TARGET}"]
+    env_file:
+      - .env
+    depends_on:
+      - db5
+
+  db5:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "16432:5432"
+    restart: always
+    volumes:
+      - db5:/var/lib/postgresql/data-5d
+        
+  analyzer:
+    build:
+      context: .
+      dockerfile: ExplainAnalyze/Dockerfile
+    volumes:
+      - ./analyze_result:/docker-entrypoint-initdb.d/analyze_result
+    depends_on: 
+      flyway:
+        condition: service_completed_successfully
+    env_file:
+      - .env
+
+  partition:
+    build: 
+      context: ./partition
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    depends_on: 
+      flyway:
+        condition: service_completed_successfully
+        
+  backup:
+    build:
+      context: ./backup
+      dockerfile: Dockerfile
+    restart: always
+    env_file:
+      - .env
+    depends_on: 
+      flyway:
+        condition: service_completed_successfully
+    volumes:
+      - ./backups_res:/docker-entrypoint-initdb.d/backups_res

@@ -1,0 +1,1 @@
+CREATE INDEX idx_interaction_id ON interaction (id)

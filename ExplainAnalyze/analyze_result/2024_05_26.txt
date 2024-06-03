@@ -1,0 +1,631 @@
+query: SELECT 
+    b.id AS board_id,
+    b.title AS board_title,
+    COUNT(p.id) AS pin_count,
+    COALESCE(AVG(CASE WHEN i.action = 'like' THEN 1 ELSE 0 END), 0) AS average_likes
+FROM 
+    board b
+LEFT JOIN 
+    pin p ON b.id = p.board_id
+LEFT JOIN 
+    interaction i ON p.id = i.pin_id AND i.action = 'like'
+GROUP BY 
+    b.id, b.title
+ORDER BY 
+    b.id;
+
+===================================================
+
+best case: 131621,46
+worst case: 131621,46
+average: 131621,46
+
+===================================================
+
+query: SELECT 
+    b.id AS board_id,
+    b.title AS board_title,
+    b.privacy_level
+FROM 
+    board b
+WHERE 
+    b.user_id = @user_id
+ORDER BY 
+    b.id; 
+
+===================================================
+
+best case: 18690,84
+worst case: 18690,84
+average: 18690,84
+
+===================================================
+
+query: WITH comment_counts AS (
+    SELECT 
+        user_id,
+        DATE_TRUNC('month', times) AS month,
+        COUNT(*) AS comment_count
+    FROM 
+        comment
+    WHERE 
+        times >= NOW() - INTERVAL '5 years'
+    GROUP BY 
+        user_id, month
+),
+monthly_averages AS (
+    SELECT 
+        user_id,
+        EXTRACT(YEAR FROM month) AS year,
+        EXTRACT(MONTH FROM month) AS month,
+        AVG(comment_count) AS avg_comments
+    FROM 
+        comment_counts
+    GROUP BY 
+        user_id, year, month
+)
+SELECT 
+    user_id,
+    year,
+    month,
+    avg_comments
+FROM 
+    monthly_averages
+ORDER BY 
+    user_id, year, month;
+
+===================================================
+
+best case: 178499,98
+worst case: 178499,98
+average: 178499,98
+
+===================================================
+
+query: SELECT 
+    b.id AS board_id,
+    b.title AS board_title,
+    COUNT(p.id) AS pin_count,
+    COALESCE(AVG(CASE WHEN i.action = 'like' THEN 1 ELSE 0 END), 0) AS average_likes
+FROM 
+    board b
+LEFT JOIN 
+    pin p ON b.id = p.board_id
+LEFT JOIN 
+    interaction i ON p.id = i.pin_id AND i.action = 'like'
+GROUP BY 
+    b.id, b.title
+ORDER BY 
+    b.id;
+
+===================================================
+
+best case: 130770,77
+worst case: 130770,77
+average: 130770,77
+
+===================================================
+
+query: SELECT 
+    b.id AS board_id,
+    b.title AS board_title,
+    b.privacy_level
+FROM 
+    board b
+WHERE 
+    b.user_id = @user_id
+ORDER BY 
+    b.id; 
+
+===================================================
+
+best case: 18689,84
+worst case: 18689,84
+average: 18689,84
+
+===================================================
+
+query: WITH comment_counts AS (
+    SELECT 
+        user_id,
+        DATE_TRUNC('month', times) AS month,
+        COUNT(*) AS comment_count
+    FROM 
+        comment
+    WHERE 
+        times >= NOW() - INTERVAL '5 years'
+    GROUP BY 
+        user_id, month
+),
+monthly_averages AS (
+    SELECT 
+        user_id,
+        EXTRACT(YEAR FROM month) AS year,
+        EXTRACT(MONTH FROM month) AS month,
+        AVG(comment_count) AS avg_comments
+    FROM 
+        comment_counts
+    GROUP BY 
+        user_id, year, month
+)
+SELECT 
+    user_id,
+    year,
+    month,
+    avg_comments
+FROM 
+    monthly_averages
+ORDER BY 
+    user_id, year, month;
+
+===================================================
+
+best case: 181498,27
+worst case: 181498,27
+average: 181498,27
+
+===================================================
+
+query: SELECT 
+    b.id AS board_id,
+    b.title AS board_title,
+    COUNT(p.id) AS pin_count,
+    COALESCE(AVG(CASE WHEN i.action = 'like' THEN 1 ELSE 0 END), 0) AS average_likes
+FROM 
+    board b
+LEFT JOIN 
+    pin p ON b.id = p.board_id
+LEFT JOIN 
+    interaction i ON p.id = i.pin_id AND i.action = 'like'
+GROUP BY 
+    b.id, b.title
+ORDER BY 
+    b.id;
+
+===================================================
+
+best case: 46093.16
+worst case: 46093.16
+average: 46093.159999999996
+
+===================================================
+
+query: SELECT 
+    b.id AS board_id,
+    b.title AS board_title,
+    b.privacy_level
+FROM 
+    board b
+WHERE 
+    b.user_id = @user_id
+ORDER BY 
+    b.id; 
+
+===================================================
+
+best case: 18690.84
+worst case: 18690.84
+average: 18690.84
+
+===================================================
+
+query: WITH comment_counts AS (
+    SELECT 
+        user_id,
+        DATE_TRUNC('month', times) AS month,
+        COUNT(*) AS comment_count
+    FROM 
+        comment
+    WHERE 
+        times >= NOW() - INTERVAL '5 years'
+    GROUP BY 
+        user_id, month
+),
+monthly_averages AS (
+    SELECT 
+        user_id,
+        EXTRACT(YEAR FROM month) AS year,
+        EXTRACT(MONTH FROM month) AS month,
+        AVG(comment_count) AS avg_comments
+    FROM 
+        comment_counts
+    GROUP BY 
+        user_id, year, month
+)
+SELECT 
+    user_id,
+    year,
+    month,
+    avg_comments
+FROM 
+    monthly_averages
+ORDER BY 
+    user_id, year, month;
+
+===================================================
+
+best case: 35394.9
+worst case: 35394.9
+average: 35394.9
+
+===================================================
+
+query: SELECT 
+    b.id AS board_id,
+    b.title AS board_title,
+    COUNT(p.id) AS pin_count,
+    COALESCE(AVG(CASE WHEN i.action = 'like' THEN 1 ELSE 0 END), 0) AS average_likes
+FROM 
+    board b
+LEFT JOIN 
+    pin p ON b.id = p.board_id
+LEFT JOIN 
+    interaction i ON p.id = i.pin_id AND i.action = 'like'
+GROUP BY 
+    b.id, b.title
+ORDER BY 
+    b.id;
+
+===================================================
+
+best case: 130752.87
+worst case: 130752.87
+average: 130752.87
+
+===================================================
+
+query: SELECT 
+    b.id AS board_id,
+    b.title AS board_title,
+    b.privacy_level
+FROM 
+    board b
+WHERE 
+    b.user_id = @user_id
+ORDER BY 
+    b.id; 
+
+===================================================
+
+best case: 18690.84
+worst case: 18690.84
+average: 18690.84
+
+===================================================
+
+query: WITH comment_counts AS (
+    SELECT 
+        user_id,
+        DATE_TRUNC('month', times) AS month,
+        COUNT(*) AS comment_count
+    FROM 
+        comment
+    WHERE 
+        times >= NOW() - INTERVAL '5 years'
+    GROUP BY 
+        user_id, month
+),
+monthly_averages AS (
+    SELECT 
+        user_id,
+        EXTRACT(YEAR FROM month) AS year,
+        EXTRACT(MONTH FROM month) AS month,
+        AVG(comment_count) AS avg_comments
+    FROM 
+        comment_counts
+    GROUP BY 
+        user_id, year, month
+)
+SELECT 
+    user_id,
+    year,
+    month,
+    avg_comments
+FROM 
+    monthly_averages
+ORDER BY 
+    user_id, year, month;
+
+===================================================
+
+best case: 179233.6
+worst case: 179233.6
+average: 179233.60000000003
+
+===================================================
+
+query: SELECT 
+    b.id AS board_id,
+    b.title AS board_title,
+    COUNT(p.id) AS pin_count,
+    COALESCE(AVG(CASE WHEN i.action = 'like' THEN 1 ELSE 0 END), 0) AS average_likes
+FROM 
+    board b
+LEFT JOIN 
+    pin p ON b.id = p.board_id
+LEFT JOIN 
+    interaction i ON p.id = i.pin_id AND i.action = 'like'
+GROUP BY 
+    b.id, b.title
+ORDER BY 
+    b.id;
+
+===================================================
+
+best case: 130752.87
+worst case: 130752.87
+average: 130752.87
+
+===================================================
+
+query: SELECT 
+    b.id AS board_id,
+    b.title AS board_title,
+    b.privacy_level
+FROM 
+    board b
+WHERE 
+    b.user_id = @user_id
+ORDER BY 
+    b.id; 
+
+===================================================
+
+best case: 18690.84
+worst case: 18690.84
+average: 18690.84
+
+===================================================
+
+query: WITH comment_counts AS (
+    SELECT 
+        user_id,
+        DATE_TRUNC('month', times) AS month,
+        COUNT(*) AS comment_count
+    FROM 
+        comment
+    WHERE 
+        times >= NOW() - INTERVAL '5 years'
+    GROUP BY 
+        user_id, month
+),
+monthly_averages AS (
+    SELECT 
+        user_id,
+        EXTRACT(YEAR FROM month) AS year,
+        EXTRACT(MONTH FROM month) AS month,
+        AVG(comment_count) AS avg_comments
+    FROM 
+        comment_counts
+    GROUP BY 
+        user_id, year, month
+)
+SELECT 
+    user_id,
+    year,
+    month,
+    avg_comments
+FROM 
+    monthly_averages
+ORDER BY 
+    user_id, year, month;
+
+===================================================
+
+best case: 179233.6
+worst case: 179233.6
+average: 179233.60000000003
+
+===================================================
+
+query: SELECT 
+    b.id AS board_id,
+    b.title AS board_title,
+    COUNT(p.id) AS pin_count,
+    COALESCE(AVG(CASE WHEN i.action = 'like' THEN 1 ELSE 0 END), 0) AS average_likes
+FROM 
+    board b
+LEFT JOIN 
+    pin p ON b.id = p.board_id
+LEFT JOIN 
+    interaction i ON p.id = i.pin_id AND i.action = 'like'
+GROUP BY 
+    b.id, b.title
+ORDER BY 
+    b.id;
+
+===================================================
+
+best case: 142127.54
+worst case: 142127.54
+average: 142127.54
+
+===================================================
+
+query: SELECT 
+    b.id AS board_id,
+    b.title AS board_title,
+    b.privacy_level
+FROM 
+    board b
+WHERE 
+    b.user_id = @user_id
+ORDER BY 
+    b.id; 
+
+===================================================
+
+best case: 18689.84
+worst case: 18689.84
+average: 18689.84
+
+===================================================
+
+query: SELECT 
+    b.id AS board_id,
+    b.title AS board_title,
+    COUNT(p.id) AS pin_count,
+    COALESCE(AVG(CASE WHEN i.action = 'like' THEN 1 ELSE 0 END), 0) AS average_likes
+FROM 
+    board b
+LEFT JOIN 
+    pin p ON b.id = p.board_id
+LEFT JOIN 
+    interaction i ON p.id = i.pin_id AND i.action = 'like'
+GROUP BY 
+    b.id, b.title
+ORDER BY 
+    b.id;
+
+===================================================
+
+best case: 200026.51
+worst case: 200026.51
+average: 200026.51
+
+===================================================
+
+query: SELECT 
+    b.id AS board_id,
+    b.title AS board_title,
+    b.privacy_level
+FROM 
+    board b
+WHERE 
+    b.user_id = @user_id
+ORDER BY 
+    b.id; 
+
+===================================================
+
+best case: 18691.84
+worst case: 18691.84
+average: 18691.84
+
+===================================================
+
+query: WITH comment_counts AS (
+    SELECT 
+        user_id,
+        DATE_TRUNC('month', times) AS month,
+        COUNT(*) AS comment_count
+    FROM 
+        comment
+    WHERE 
+        times >= NOW() - INTERVAL '5 years'
+    GROUP BY 
+        user_id, month
+),
+monthly_averages AS (
+    SELECT 
+        user_id,
+        EXTRACT(YEAR FROM month) AS year,
+        EXTRACT(MONTH FROM month) AS month,
+        AVG(comment_count) AS avg_comments
+    FROM 
+        comment_counts
+    GROUP BY 
+        user_id, year, month
+)
+SELECT 
+    user_id,
+    year,
+    month,
+    avg_comments
+FROM 
+    monthly_averages
+ORDER BY 
+    user_id, year, month;
+
+===================================================
+
+best case: 180174.11
+worst case: 180174.11
+average: 180174.11000000002
+
+===================================================
+
+query: SELECT 
+    b.id AS board_id,
+    b.title AS board_title,
+    COUNT(p.id) AS pin_count,
+    COALESCE(AVG(CASE WHEN i.action = 'like' THEN 1 ELSE 0 END), 0) AS average_likes
+FROM 
+    board b
+LEFT JOIN 
+    pin p ON b.id = p.board_id
+LEFT JOIN 
+    interaction i ON p.id = i.pin_id AND i.action = 'like'
+GROUP BY 
+    b.id, b.title
+ORDER BY 
+    b.id;
+
+===================================================
+
+best case: 142091.66
+worst case: 142091.66
+average: 142091.66
+
+===================================================
+
+query: SELECT 
+    b.id AS board_id,
+    b.title AS board_title,
+    b.privacy_level
+FROM 
+    board b
+WHERE 
+    b.user_id = @user_id
+ORDER BY 
+    b.id; 
+
+===================================================
+
+best case: 18687.84
+worst case: 18687.84
+average: 18687.84
+
+===================================================
+
+query: WITH comment_counts AS (
+    SELECT 
+        user_id,
+        DATE_TRUNC('month', times) AS month,
+        COUNT(*) AS comment_count
+    FROM 
+        comment
+    WHERE 
+        times >= NOW() - INTERVAL '5 years'
+    GROUP BY 
+        user_id, month
+),
+monthly_averages AS (
+    SELECT 
+        user_id,
+        EXTRACT(YEAR FROM month) AS year,
+        EXTRACT(MONTH FROM month) AS month,
+        AVG(comment_count) AS avg_comments
+    FROM 
+        comment_counts
+    GROUP BY 
+        user_id, year, month
+)
+SELECT 
+    user_id,
+    year,
+    month,
+    avg_comments
+FROM 
+    monthly_averages
+ORDER BY 
+    user_id, year, month;
+
+===================================================
+
+best case: 180751.54
+worst case: 180751.54
+average: 180751.54
+
+===================================================
+
